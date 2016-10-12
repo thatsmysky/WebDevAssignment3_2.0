@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Assignment 4A</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="style/assignment_3.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="data/data.js"></script>
+        <script src="script/htmlMaker.js"></script>
+        <script src="script/assignment_3.js"></script>
+        <script id="news-detail-template" type="text/html">
+                    <img class='news_photo' src='{{photo}}' >
+        <div class='news_heading'>{{heading}}</div>
+        <div class='date'>{{Date}}</div>
+        <div class='news_detail'>{{details}}</div>          
+        </script>  
+        <script id="news-item-template" type="text/html">
+        <div news_id='{{id}}' class='news_item' > {{heading}} </div> 
+        <img class='news_img' src='data/NBA.jpg'>
+        </script>         
+    </head>
+    <body>
+        <div class="newsDiv">
+            <div class="left">Latest</div>
+            <div id="news" class="marquee">
+            </div>
+            <img id="toggle" class="right" src="data/pause.png">
+        </div>
+        <div id="detail" class="detail">
+
+        </div>
+    </body>
+</html>
