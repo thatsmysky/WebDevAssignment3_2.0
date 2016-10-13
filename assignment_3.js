@@ -7,7 +7,8 @@ function Marquee(data) {
 	var self = this;
 	this.state = 'play';
 	this.icon = '#toggle';
-	this.news = news["news"];
+	this.news = data;
+	this.news_item = ".news_item"
 		
 		
 	var change_marquee_function=function(){
@@ -19,15 +20,16 @@ function Marquee(data) {
 	}
 	
 	$(this.icon).on("click", change_marquee_function);
-	$("#news").on("click",function() {
-		//var val = $(this).index();
+	
+	this.load_news(data);
+
+	
+	$(this.news_item).on("click", function() {
+		console.log(this);
 		var val = $(this).attr("news_id");
-		//var val = $(this).children().attr("news_id");
-	 	//val = parseInt(val);
 		show_details_function(val);
 	});
 
-	this.load_news(data);
 }
 
 
@@ -59,11 +61,11 @@ Marquee.prototype.change_marquee = function() {
 
 Marquee.prototype.show_details = function(news_id) {
 	for (var key = 0; key < 5; key++) {
-		    if (news_id == this.news[key]["id"]) {
-				var Template = $("#news-detail-template").html();
-				var html_Maker = new htmlMaker(Template); 
-		        var Html = html_Maker.getHTML(this.news[key]);
-		        $("#detail").html(Html);  
-		    }
-		}
+	    if (news_id == this.news[key]["id"]) {
+			var Template = $("#news-detail-template").html();
+			var html_Maker = new htmlMaker(Template); 
+	        var Html = html_Maker.getHTML(this.news[key]);
+	        $("#detail").html(Html);  
+	    }
+	}
 }
