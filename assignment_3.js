@@ -15,39 +15,54 @@ function load_news() {
 function Marquee(data) {
 	
 	var self = this;
-	var state = 'play';
+	this.state = 'play';
 	this.icon = '#toggle';
-	
-	$(this.icon).on("click", change_marquee);
+	this.news = news["news"];
 		
-	//$("#news").children("#3").on("click", show_details('2'));
-	//$("#news").children("#2").on("click", show_details('1'));
-	$("#news").children().on("click", show_details('0'));
 		
-	
-	function change_marquee() {
-		var marquee = document.getElementById("news");
-		if (state == 'play')
-		{
-			$("#toggle").attr("src", "data/play.png");
-			state = 'pause';
-			$("#news").attr("class", "marquee_paused");
-		}
-		
-		else
-		{
-			$("#toggle").attr("src", "data/pause.png");
-			state = 'play';
-			$("#news").attr("class", "marquee");
-		}
+	var change_marquee_function=function(){
+		self.change_marquee.call(self);
 	};
 	
+	var show_details_function=function(id){
+		self.show_details.call(self, id);
+	}
 	
-	function show_details(index) {
-		var Template = $("#news-detail-template").html();
-		var html_Maker = new htmlMaker(Template); 
-		var Html = html_Maker.getHTML(data[index]); 
-		$("#detail").html(Html);
-	};
 	
+	$(this.icon).on("click", change_marquee_function);
+	//$("#news").on("click", show_details_function);
+	$("#news").on("click",function() {
+		var val = $(this).attr("news_id");
+	 	val = parseInt(val);
+	    show_details_function(val);
+ 	   });
+}
+
+Marquee.prototype.change_marquee = function() {
+	var marquee = document.getElementById("news");
+	if (this.state == 'play')
+	{
+		$("#toggle").attr("src", "data/play.png");
+		this.state = 'pause';
+		$("#news").attr("class", "marquee_paused");
+	}
+	
+	else
+	{
+		$("#toggle").attr("src", "data/pause.png");
+		this.state = 'play';
+		$("#news").attr("class", "marquee");
+	}
+};
+
+
+Marquee.prototype.show_details = function(news_id) {
+	for (var key = 0; key < 5; key++) {
+		    if (news_id == this.news[key]["id"]) {
+				var Template = $("#news-detail-template").html();
+				var html_Maker = new htmlMaker(Template); 
+		        var Html = html_Maker.getHTML(this.news[key]);
+		        $("#detail").html(Html);  
+		    }
+		}
 }
