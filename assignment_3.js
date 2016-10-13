@@ -1,16 +1,6 @@
-$(document).ready(load_news);
-
-function load_news() {
-	
-	var data = news["news"];
-	var template = $("#news-item-template").html(); //get the marquee template
-	var html_maker = new htmlMaker(template); //create an html Maker
-	var html = html_maker.getHTML(data); //generate dynamic HTML based on the news data
-	$("#news").html(html);
-	
-	var marquee = new Marquee(data);
-}
-
+$(document).ready( function() {
+	var marquee = new Marquee(news["news"]);
+});
 
 function Marquee(data) {
 	
@@ -28,15 +18,26 @@ function Marquee(data) {
 		self.show_details.call(self, id);
 	}
 	
-	
 	$(this.icon).on("click", change_marquee_function);
-	//$("#news").on("click", show_details_function);
 	$("#news").on("click",function() {
+		//var val = $(this).index();
 		var val = $(this).attr("news_id");
-	 	val = parseInt(val);
-	    show_details_function(val);
- 	   });
+		//var val = $(this).children().attr("news_id");
+	 	//val = parseInt(val);
+		show_details_function(val);
+	});
+
+	this.load_news(data);
 }
+
+
+Marquee.prototype.load_news = function(data) {
+		var template = $("#news-item-template").html(); //get the marquee template
+		var html_maker = new htmlMaker(template); //create an html Maker
+		var html = html_maker.getHTML(data); //generate dynamic HTML based on the news data
+		$("#news").html(html);
+};
+
 
 Marquee.prototype.change_marquee = function() {
 	var marquee = document.getElementById("news");
